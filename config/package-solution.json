@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "sharepoint-slider-webpart-client-side-solution",
+    "id": "a16947a2-2126-4e17-abe5-01691827d384",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.19.0"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "sharepoint-slider-webpart description"
+      },
+      "longDescription": {
+        "default": "sharepoint-slider-webpart description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "sharepoint-slider-webpart Feature",
+        "description": "The feature that activates elements of the sharepoint-slider-webpart solution.",
+        "id": "c42750ee-bac3-4209-924e-14a12d2405ab",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/sharepoint-slider-webpart.sppkg"
+  }
+}

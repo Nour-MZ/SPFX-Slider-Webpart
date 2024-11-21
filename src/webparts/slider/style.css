@@ -1,0 +1,218 @@
+
+
+* {
+    /* margin: 0;
+    padding: 0;
+    box-sizing: border-box; */
+}
+
+body {
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    /* min-height: 100vh;
+    background-color: #f5f5f5;
+    font-family: Arial, sans-serif; */
+}
+
+.elcustom-slider-container {
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
+    background: white;
+    /* border-radius: 10px; */
+    overflow: hidden;
+    /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+    height: 30rem;
+    display: flex;
+    margin: 0 auto;
+}
+
+.elcustom-slider {
+    width: 100%;
+ 
+}
+.elcustom-slider .swiper-slide {
+    display: flex;
+    background-color: white;
+}
+.elcustom-slider .swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.elcustom-image-container {
+    width: 50%;
+    height: 100%;
+}
+.elcustom-slider  .elcustom-content {
+    padding: 2.3rem;
+    width: calc(56% - 4.6rem);
+    border: 1px solid #E8E8E8;
+    border-left: none;
+    background-color: white;
+}
+
+.elcustom-content h1 {
+    word-break: break-word;
+    margin-top: 0;
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.elcustom-tags {
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.elcustom-tag {
+    color: #007bff;
+    margin-right: 1rem;
+    font-size: 0.9rem;
+  
+}
+.elcustom-tags-line {
+    width: 4rem;
+    height: 2px;
+    background-color: #E8E8E8;
+    margin-right: 1rem;
+}
+.elcustom-content p {
+    color: #666;
+    line-height:2;
+    margin-bottom: 1rem;
+}
+
+/* Customize Swiper navigation buttons */
+.elcustom-slider-container .elcustom-swiper-button {
+    position: absolute;
+    height: 4rem;
+    width: 2.5rem;
+    right: 50%;
+    top: 50%;
+    left: auto;
+    border-radius: 0;
+    color: white;
+    transform: translate(0, -50%);
+    background: white;
+    cursor: pointer;
+    
+}
+
+.elcustom-slider-container .elcustom-swiper-button::after {
+    font-family: none;
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-image: url('assets/images/chevron-right-svgrepo-com.svg');
+    background-size: 70%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.elcustom-slider-container .elcustom-swiper-button.elcustom-prev {
+    left: 0;
+    right: auto;
+    background-image: url('assets/images/chevron-left-svgrepo-com.svg');
+}
+
+.elcustom-slider-container .elcustom-swiper-button.elcustom-prev::after{
+    background-image: url(assets/images/chevron-left-svgrepo-com.svg);
+}
+
+/* Slider 2 */
+
+.elcustom-slider-container.slider2 .elcustom-slider .elcustom-content {
+    padding: 2.3rem;
+    max-width: 55%;
+    height: 58%;
+    border: none;
+    background-color: white;
+    position: absolute;
+    bottom: -0%;
+    right: 0;
+}
+
+.elcustom-slider-container.slider2  .elcustom-slider .elcustom-tags{
+    display: none;
+}
+
+.elcustom-slider-container.slider2 .elcustom-swiper-button {
+    height: 3rem;
+    width: 3.5rem;
+    right: calc(29.5% - 3.5rem);
+    top: 36.5%;
+    left: auto;
+    border-radius: 0;
+    color: white;
+    background-color: #000000;
+
+}
+
+.elcustom-slider-container.slider2 .elcustom-swiper-button::after{
+    filter: invert(1);
+    background-size: 60%;
+}
+
+.elcustom-slider-container.slider2 .elcustom-swiper-button.elcustom-prev{
+    right: 27.5%;
+    background-color: pink;
+    background: #333333;
+}
+
+.elcustom-slider-container.slider2 .elcustom-image-container {
+    width: 72.6%;
+    height: 100%;
+}
+
+/* */
+.elcustom.slider3.card {
+    display: flex;
+    margin-bottom: 1.5rem;
+}
+.elcustom.slider3 .elcustom-image-container {
+    width: 36%;
+    height: auto;
+    margin-right: 0;
+}
+
+.elcustom.slider3  .elcustom-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.elcustom.slider3  .elcustom-tags{
+    margin-bottom: 0;
+}
+
+.elcustom.slider3  span.elcustom-time {
+    padding-right: .5rem;
+    border-right: 1px solid #F3F3F3;
+    padding-left: .5rem;
+}
+
+
+.elcustom.slider3 .elcustom-tag {
+    margin-left: .5rem;
+    font-size: 0.8rem;
+}
+
+.elcustom-tags-clock {
+    display: flex
+;
+    align-items: center;
+}
+
+.elcustom-slider-container.slider3 {
+    flex-direction: column;
+    height: auto;
+}
+
+.elcustom-slider-container.slider3  .elcustom-content {
+    width: 100%;
+    padding: .5rem;
+    padding-left: 1rem;
+}
