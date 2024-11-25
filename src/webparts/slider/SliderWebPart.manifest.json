@@ -22,9 +22,21 @@
     "description": { "default": "slider description" },
     "officeFabricIconFontName": "Page",
     "properties": {
-      "description": "slider",
-      "listName": "",
-      "slider": 0
+      "listname": "sliderimages",
+      "itemnumber": 3,
+      "template": "slider2",
+      "slidereffect": "fade",
+      "autotransitiondelay": 5000,
+      "animationspeed": 1200,
+      "autoplay": false,
+      "headerfont": 24,
+      "headerspacing": 10,
+      "headercolor": "#000000",
+      "descriptionfont": 16,
+      "descriptioncolor": "#000000",
+      "tagstoggle": true,
+      "backgroundcolor": "#FFFFFF",
+      "thumbnailtoggle": true
     }
   }]
 }

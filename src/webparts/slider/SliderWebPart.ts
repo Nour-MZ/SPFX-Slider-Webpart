@@ -11,6 +11,8 @@ import {
 
 } from '@microsoft/sp-property-pane';
 import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
+// import { IClientsidePage } from "@pnp/sp/clientside-pages";
+import { ClientsidePageFromFile } from "@pnp/sp/clientside-pages";
 // import { PropertyFieldListPicker } from '@pnp/spfx-property-controls/lib';
 
 
@@ -59,9 +61,10 @@ export interface ISliderWebPartProps {
   listname: string;
 
   itemnumber: number;
-  lists: string | string[];
-  template: 'slider1' | 'slider2' | 'slider3';
-  carouselheight: number;
+  listsource: boolean;
+  // lists: string | string[];
+  template: 'slider1' | 'slider2' | 'slider3' | 'slider4' | 'slider5' | 'slider6' | 'slider7';
+
   slidereffect: 'slide' | 'fade' | 'cube' | 'coverflow' | 'cards';
   autotransitiondelay: number;
   animationspeed: number;
@@ -80,24 +83,55 @@ export interface ISliderWebPartProps {
 
 let sp: ReturnType<typeof spfi>;
 export default class SliderWebPart extends BaseClientSideWebPart<ISliderWebPartProps> {
+  
+  private async getNewsPosts(): Promise<void> {
+    try {
+    
+     
+      const pager = await ClientsidePageFromFile(sp.web.getFileByServerRelativePath("/sites/SliderWebpart/sitepages/post1.aspx"));
+      const pagerr= await pager.load()
+      console.log(pagerr)
 
+      // console.log(pagerr.json.CanvasContent1)
+
+      // const value = pager.bannerImageUrl
+      // const value = pager.description
+      // const value = pager.title
+      // const value = pager.sections
+      
+      
+    
+      // const newsPosts = await sp.web.lists.getByTitle("Site Pages").items
+      //   .select("Title", "FileRef", "PublishingPageImage", "Created", "Author/Title")
+      //   .expand("Author")
+      //   .filter("ContentType eq 'NewsPost'")();
+      // return newsPosts;
+    } catch (error) {
+      console.error("Error fetching news posts:", error);
+      // return [];
+    }
+  }
 
 
 
   public async render(): Promise<void> {
+    const newspost= await this.getNewsPosts();
+    console.log(newspost)
+
     const listName = this.properties.listname;
     const listItems = await this.getListItems(listName, this.properties.itemnumber);
-    console.log(listItems)
+   
     const uniqueClassSuffix = `slider-${this.context.instanceId}`;
     // const clockIconUrl = require('./assets/Icon feather-clock.svg');
 
-    if (this.properties.template === 'slider3') {
+    if (this.properties.template === 'slider3' || this.properties.template === 'slider4'  || this.properties.template === 'slider5') {
       const cardsHtml = listItems.map((item, index) => `
-    <div class="elcustom slider3 card">
+    <div class="elcustom ${this.properties.template} card">
         <div class="elcustom-image-container" style="display: ${this.properties.thumbnailtoggle === true ? 'flex' : 'none'}">
             <img src="https://wshare.sharepoint.com/sites/SliderWebpart/${listName}/${item.name}" alt="${item.title}">
         </div>
         <div class="elcustom-content" style="background-color: ${this.properties.backgroundcolor}">
+            <div class="elcustom-date" style="color: ${this.properties.descriptioncolor};font-size: ${this.properties.descriptionfont}px; " >19 Jan 20204</div>
             <h1 style="color: ${this.properties.headercolor}; font-size: ${this.properties.headerfont}px;">
                 ${item.title}
             </h1>
@@ -107,9 +141,9 @@ export default class SliderWebPart extends BaseClientSideWebPart<ISliderWebPartP
             <div class="elcustom-tags"  style="display: ${this.properties.tagstoggle === true ? 'flex' : 'none'}">
                 <div class="elcustom-tags-clock">
                     <img src="${clockIconUrl}" alt="Clock Icon">
-                    <span class="elcustom-time">6 hours ago</span>
+                    <span class="elcustom-time" style=" font-size: ${this.properties.descriptionfont }px; color: ${this.properties.descriptioncolor}; ">6 hours ago</span>
                 </div>
-                ${item.tags.slice(0, 3).map((tag :any) => `<span class="elcustom-tag">${tag}</span>`).join('')}
+                ${item.tags.slice(0, 3).map((tag :any) => `<span class="elcustom-tag" style="color:${this.properties.headercolor}; border-color: ${this.properties.headercolor};font-size: ${this.properties.descriptionfont }px;">${tag}</span>`).join('')}
             </div>
         </div>
     </div>
@@ -120,26 +154,25 @@ this.domElement.innerHTML = `
         ${cardsHtml}
     </div>
 `;
-
+      this.updateDesignBasedOnSize(`.elcustom-slider-container.${uniqueClassSuffix}`)
     }
 
-    else {
-
-
-
-
+    else{
       const slidesHtml = listItems.map((item, index) => `
-      <div class="swiper-slide" style="background-color: ${this.properties.backgroundcolor};">
+      <div class="swiper-slide">
           <div class="elcustom-image-container" >
               <img src="https://wshare.sharepoint.com/sites/SliderWebpart/${listName}/${item.name}" alt="${item.title}">
           </div>
           <div class="elcustom-content swiper-no-swiping" style="background-color:${this.properties.backgroundcolor};">
+              <div class="elcustom-date" style="color: ${this.properties.descriptioncolor};font-size: ${this.properties.descriptionfont}px; " >19 Jan 20204</div>
               <h1 class="elcustom-extra-title ${uniqueClassSuffix}" style="color: ${this.properties.headercolor}; letter-spacing: ${this.properties.headerspacing}px; font-size: ${this.properties.headerfont}px;">${item.title}</h1>
               <div class="elcustom-tags" style="display: ${this.properties.tagstoggle === true ? 'flex' : 'none'}">
                   <div class="elcustom-tags-line"></div>
-                  ${item.tags.slice(0, 3).map((tag: any) => `<span class="elcustom-tag">${tag}</span>`).join('')}
+                  ${item.tags.slice(0, 3).map((tag: any) => `<span class="elcustom-tag" style="color:${this.properties.headercolor}; border-color: ${this.properties.headercolor};font-size: ${this.properties.descriptionfont }px;">${tag}</span>`).join('')}
               </div>
               <p class="elcustom-paragraph" style="color: ${this.properties.descriptioncolor}; font-size: ${this.properties.descriptionfont}px;">${item.paragraph}</p>
+              <span class="elcustom-time" style=" font-size: ${this.properties.descriptionfont }px; color: ${this.properties.descriptioncolor}; ">6 hours ago</span>
+
           </div>
           <div class="swiper-button-prev elcustom-swiper-button elcustom-prev ${uniqueClassSuffix}"></div>
           <div class="swiper-button-next elcustom-swiper-button ${uniqueClassSuffix}"></div>
@@ -181,11 +214,24 @@ this.domElement.innerHTML = `
         },
       });
 
-
+      this.updateDesignBasedOnSize(`.elcustom-slider-container.${uniqueClassSuffix}`);
       console.log(swiper);
     }
   }
+      private updateDesignBasedOnSize(classname: string): void {
+        
+        const container = this.domElement.querySelector(`${classname}`) as HTMLElement;
+        const containerWidth = container?.clientWidth || 0;
+  
+       
+        const threshold = 400;
 
+        if (containerWidth < threshold) {
+            container.classList.add('small-container-design');
+        } else {
+            container.classList.remove('small-container-design');
+        }
+    }
   protected onInit(): Promise<void> {
     sp = spfi().using(SPFx(this.context));
     const style = document.createElement('style');
@@ -217,13 +263,12 @@ this.domElement.innerHTML = `
 
   private async getListItems(listName: string, itemsnumber: number): Promise<IListItem[]> {
     try {
-      console.log(listName)
-      console.log(itemsnumber)
+ 
       const caml: ICamlQuery = {
         ViewXml: `<View><RowLimit>${itemsnumber}</RowLimit></View>`,
       };
       const items = await sp.web.lists.getByTitle(listName).getItemsByCAMLQuery(caml);
-      console.log(items)
+
       return items.map((item: any) => ({
         title: item.test,
         paragraph: item.description,
@@ -257,7 +302,10 @@ this.domElement.innerHTML = `
                 PropertyPaneTextField('listname', {
                   label: "List Name"
                 }),
+                PropertyPaneToggle('listsource', {
+                  label: "Get from news post?",
 
+                }),
                 PropertyPaneSlider('itemnumber', {
                   label: "Slider Value",
                   min: 0,
@@ -309,6 +357,53 @@ this.domElement.innerHTML = `
 
                     },
 
+                    {
+                      key: 'slider4',
+                      text: 'Template 4',
+                      selectedImageSrc: require('./assets/Group 3967.svg'),
+                      imageSrc: require('./assets/Group 3967.svg'),
+                      imageSize: {
+                        width: 100,
+                        height: 100,
+                      },
+
+                    },
+
+                    {
+                      key: 'slider5',
+                      text: 'Template 5',
+                      selectedImageSrc: require('./assets/Group 3922.svg'),
+                      imageSrc: require('./assets/Group 3922.svg'),
+                      imageSize: {
+                        width: 100,
+                        height: 100,
+                      },
+
+                    },
+                    {
+                      key: 'slider6',
+                      text: 'Template 6',
+                      selectedImageSrc: require('./assets/Group 3926.svg'),
+                      imageSrc: require('./assets/Group 3926.svg'),
+                      imageSize: {
+                        width: 100,
+                        height: 100,
+                      },
+
+                    },
+
+                    {
+                      key: 'slider7',
+                      text: 'Template 7',
+                      selectedImageSrc: require('./assets/Group 3930.svg'),
+                      imageSrc: require('./assets/Group 3930.svg'),
+                      imageSize: {
+                        width: 100,
+                        height: 100,
+                      },
+
+                    },
+
 
 
                   ]
@@ -321,7 +416,7 @@ this.domElement.innerHTML = `
               groupFields: [
                 PropertyPaneToggle('tagstoggle', {
                   label: "Tags",
-                  
+                  disabled: this.properties.template === 'slider4' ? true : false,
 
                 }),
                 PropertyPaneToggle('thumbnailtoggle', {

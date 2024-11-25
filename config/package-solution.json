@@ -3,7 +3,7 @@
   "solution": {
     "name": "sharepoint-slider-webpart-client-side-solution",
     "id": "a16947a2-2126-4e17-abe5-01691827d384",
-    "version": "1.0.0.0",
+    "version": "2.0.0.0",
     "includeClientSideAssets": true,
     "skipFeatureDeployment": true,
     "isDomainIsolated": false,
@@ -30,7 +30,7 @@
         "title": "sharepoint-slider-webpart Feature",
         "description": "The feature that activates elements of the sharepoint-slider-webpart solution.",
         "id": "c42750ee-bac3-4209-924e-14a12d2405ab",
-        "version": "1.0.0.0"
+        "version": "2.0.0.0"
       }
     ]
   },
